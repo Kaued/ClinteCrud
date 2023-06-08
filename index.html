@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clientes</title>
+  <!-- Importa Bootstrap e Jquery -->
+  <link href="public/css/bootstrap.min.css" rel="stylesheet">
+  <script src="public/js/popper.min.js"></script>
+  <script src="public/js/jquery-3.6.4.min.js"></script>
+  <script src="public/js/bootstrap.bundle.min.js"></script>
+  <link href="public/css/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- Importa css e js customizado -->
+  <script src="public/js/listarCliente.js"></script>
+  <script src="public/js/adicionarCliente.js"></script>
+  
+  <link href="public/css/estilo.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <!-- Modal adicionar cliente -->
+
+  <div class="modal bide" id="modalAddCliente" tabindex="-1" aria-labelledby="modalAddCliente" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h1 class="modal-title fs-5" id="modalAddCliente">Adicioar cliente</h1>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <!-- Mensagem de erro -->
+          <div class="alert alert-danger" role="alert" id="mensagemErroAdd">
+          </div>
+
+          <!-- Mensagem de sucesso -->
+          <div class="alert alert-success" role="alert" id="mensagemSucessoAdd">
+          </div>
+
+          <!-- Adicionar nome do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="text" class="form-control" id="addNomeCliente" placeholder="Nome do cliente">
+
+            <label for="addNomeCliente">Nome</label>
+
+          </div>
+
+          <!-- Adicionar data de nascimento do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="date" class="form-control" id="addNascCliente" placeholder="dd/mm/aaaa">
+
+            <label for="addNascCliente">Data de nascimento</label>
+
+          </div>
+
+          <!-- Adiciononar cpf do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="text" class="form-control" id="addCpfCliente" placeholder="___.___.___-__">
+
+            <label for="addCpfCliente">CPF</label>
+
+          </div>
+
+          <!-- Adicionar email do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="email" class="form-control" id="addEmailCliente" placeholder="email@mail.com">
+
+            <label for="addEmailCliente">Email</label>
+
+          </div>
+
+          <!-- Adicionar endereço do cliente -->
+          <div class="enderecoAddCliente text-center mb-3">
+
+            <h2>Endereço</h2>
+            <div class="row">
+              <!-- Cep -->
+              <div class="form-floating mb-3 col">
+
+                <input type="text" class="form-control" id="addCepCliente" placeholder="_____-___">
+
+                <label for="addCepCliente">Cep</label>
+                
+
+              </div>
+              <!-- Número -->
+              <div class="form-floating mb-3 col-3">
+
+                <input type="number" class="form-control" id="addNumCliente" placeholder="Numero do cliente" step="1">
+
+                <label for="addNumCliente m">Número</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-floating mb-3 col">
+                <!-- Rua -->
+                <input type="text" class="form-control" id="addRuaCliente" placeholder="Rua do cliente">
+
+                <label for="addRuaCliente">Rua/Av</label>
+                
+
+              </div>
+            
+              <div class="form-floating mb-3 col-5">
+                <!-- Bairro -->
+                <input type="text" class="form-control" id="addBairroCliente" placeholder="Bairro do cliente">
+
+                <label for="addBairroCliente">Bairro</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-floating mb-3 col">
+                <!-- Cidade -->
+                <input type="text" class="form-control" id="addCidadeCliente" placeholder="Cidade do cliente">
+
+                <label for="addCidadeCliente">Cidade</label>
+                
+
+              </div>
+            
+              <div class="form-floating mb-3 col-3">
+                <!-- Estado -->
+                <input type="text" class="form-control" id="addEstadoCliente" placeholder="Estado do cliente">
+
+                <label for="addEstadoCliente">Estado</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="form-floating mb-3 col">
+                <!-- Complemento -->
+                <input type="text" class="form-control" id="addComplementoCliente" placeholder="Complemento do cliente">
+
+                <label for="addComplementoCliente">Complemento</label>
+                
+
+              </div>
+          
+
+            </div>
+
+          </div>
+
+          <!-- Obeservação sobre o cliente -->
+          <div class="form-floating mb-3">
+
+            <textarea class="form-control" id="addObsCliente" placeholder="Observação do cliente" maxlength="300"></textarea>
+
+            <label for="addObsCliente">Observação</label>
+
+          </div>
+          
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancelarAdicionarCliente">Cancelar</button>
+
+          <button type="button" class="btn btn-success" id="adicionarCliente">Adicionar</button>
+        
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Exibir cliente -->
+
+  <div class="modal fade" id="modalexibirCliente" tabindex="-1" aria-labelledby="exibirCliente" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h1 class="modal-title fs-5" id="exibirClienteNome"></h1>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <div class="form-floating mb-3">
+
+            <input type="text" class="form-control" id="exibiNomeCliente" placeholder="Nome do cliente" disabled>
+
+            <label for="exibiNomeCliente">Nome</label>
+
+          </div>
+
+          <!-- Adicionar data de nascimento do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="date" class="form-control" id="exibiDataCliente" placeholder="dd/mm/aaaa" disabled> 
+
+            <label for="exibiDataCliente">Data de nascimento</label>
+
+          </div>
+
+          <!-- Adiciononar cpf do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="text" class="form-control" id="exibiCpfCliente" placeholder="___.___.___-__" disabled>
+
+            <label for="exibiCpfCliente">CPF</label>
+
+          </div>
+
+          <!-- Adicionar email do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="email" class="form-control" id="exibiEmailCliente" placeholder="email@mail.com" disabled>
+
+            <label for="exibiEmailCliente">Email</label>
+
+          </div>
+
+          <!-- Adicionar endereço do cliente -->
+          <div class="enderecoAddCliente text-center mb-3">
+
+            <h2>Endereço</h2>
+            <div class="row">
+              <!-- Cep -->
+              <div class="form-floating mb-3 col">
+
+                <input type="text" class="form-control" id="exibiCepCliente" placeholder="_____-___" disabled>
+
+                <label for="exibiCepCliente">Cep</label>
+                
+
+              </div>
+              <!-- Número -->
+              <div class="form-floating mb-3 col-3">
+
+                <input type="number" class="form-control" id="exibiNumCliente" placeholder="Numero do cliente" step="1" disabled>
+
+                <label for="exibiNumCliente ">Número</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-floating mb-3 col">
+                <!-- Rua -->
+                <input type="text" class="form-control" id="exibiRuaCliente" placeholder="Rua do cliente" disabled>
+
+                <label for="exibiRuaCliente">Rua/Av</label>
+                
+
+              </div>
+            
+              <div class="form-floating mb-3 col-5">
+                <!-- Bairro -->
+                <input type="text" class="form-control" id="exibiBairroCliente" placeholder="Bairro do cliente" disabled>
+
+                <label for="exibiBairroCliente">Bairro</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-floating mb-3 col">
+                <!-- Cidade -->
+                <input type="text" class="form-control" id="exibiCidadeCliente" placeholder="Cidade do cliente" disabled>
+
+                <label for="exibiCidadeCliente">Cidade</label>
+                
+
+              </div>
+            
+              <div class="form-floating mb-3 col-3">
+                <!-- Estado -->
+                <input type="text" class="form-control" id="exibiEstadoCliente" placeholder="Estado do cliente" disabled>
+
+                <label for="exibiEstadoCliente">Estado</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="form-floating mb-3 col">
+                <!-- Complemento -->
+                <input type="text" class="form-control" id="exibiComplementoCliente" placeholder="Complemento do cliente" disabled>
+
+                <label for="exibiComplementoCliente">Complemento</label>
+                
+
+              </div>
+          
+
+            </div>
+
+          </div>
+
+          <!-- Obeservação sobre o cliente -->
+          <div class="form-floating mb-3">
+
+            <textarea class="form-control" id="exibirObsCliente" placeholder="Observação do cliente" maxlength="300" disabled></textarea>
+
+            <label for="exibirObsCliente">Observação</label>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+
+        </div>
+
+      </div>
+
+    </div>
+    
+  </div>
+  
+  <!-- AlterarCliente -->
+  <div class="modal fade" id="modalAlterarCliente" tabindex="-1" aria-labelledby="modalAlterarCliente" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h1 class="modal-title fs-5" >Alterar Cliente:</h1>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <!-- Mensagem de erro -->
+          <div class="alert alert-danger" role="alert" id="mensagemErroAleterar">
+          </div>
+
+          <div class="form-floating mb-3 d-none">
+
+            <input type="text" class="form-control" id="idClienteAlt" placeholder="Nome do cliente" disabled>
+
+            <label for="alteraNomeCliente">id</label>
+
+          </div>
+
+          <div class="form-floating mb-3">
+
+            <input type="text" class="form-control" id="alteraNomeCliente" placeholder="Nome do cliente" >
+
+            <label for="alteraNomeCliente">Nome</label>
+
+          </div>
+
+          <!-- Adicionar data de nascimento do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="date" class="form-control" id="alteraDataNascCliente" placeholder="dd/mm/aaaa" > 
+
+            <label for="alteraDataNascCliente">Data de nascimento</label>
+
+          </div>
+
+          <!-- Adiciononar cpf do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="text" class="form-control" id="alteraCpfCliente" placeholder="___.___.___-__" >
+
+            <label for="alteraCpfCliente">CPF</label>
+
+          </div>
+
+          <!-- Adicionar email do cliente -->
+          <div class="form-floating mb-3">
+
+            <input type="email" class="form-control" id="alteraEmailCliente" placeholder="email@mail.com" >
+
+            <label for="alteraEmailCliente">Email</label>
+
+          </div>
+
+          <!-- Adicionar endereço do cliente -->
+          <div class="enderecoAddCliente text-center mb-3">
+
+            <h2>Endereço</h2>
+            <div class="row">
+              <!-- Cep -->
+              <div class="form-floating mb-3 col">
+
+                <input type="text" class="form-control" id="alteraCepCliente" placeholder="_____-___" >
+
+                <label for="alteraCepCliente">Cep</label>
+                
+
+              </div>
+              <!-- Número -->
+              <div class="form-floating mb-3 col-3">
+
+                <input type="number" class="form-control" id="alteraNumCliente" placeholder="Numero do cliente" step="1" >
+
+                <label for="alteraCpfCliente ">Número</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-floating mb-3 col">
+                <!-- Rua -->
+                <input type="text" class="form-control" id="alteraRuaCliente" placeholder="Rua do cliente" >
+
+                <label for="alteraRuaCliente">Rua/Av</label>
+                
+
+              </div>
+            
+              <div class="form-floating mb-3 col-5">
+                <!-- Bairro -->
+                <input type="text" class="form-control" id="alteraBairroCliente" placeholder="Bairro do cliente" >
+
+                <label for="alteraBairroCliente">Bairro</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-floating mb-3 col">
+                <!-- Cidade -->
+                <input type="text" class="form-control" id="alteraCidadeCliente" placeholder="Cidade do cliente" >
+
+                <label for="alteraCidadeCliente">Cidade</label>
+                
+
+              </div>
+            
+              <div class="form-floating mb-3 col-3">
+                <!-- Estado -->
+                <input type="text" class="form-control" id="alteraEstadoCliente" placeholder="Estado do cliente" >
+
+                <label for="alteraEstadoCliente">Estado</label>
+              
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="form-floating mb-3 col">
+                <!-- Complemento -->
+                <input type="text" class="form-control" id="alteraComplementoCliente" placeholder="Complemento do cliente" >
+
+                <label for="alteraComplementoCliente">Complemento</label>
+                
+
+              </div>
+          
+
+            </div>
+
+          </div>
+
+          <!-- Obeservação sobre o cliente -->
+          <div class="form-floating mb-3">
+
+            <textarea class="form-control" id="alteraObsCliente" placeholder="Observação do cliente" maxlength="300" ></textarea>
+
+            <label for="alteraObsCliente">Observação</label>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancelarAlterarCliente">Fechar</button>
+          
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="altearaCliente">Alterar</button>
+
+        </div>
+
+      </div>
+
+    </div>
+    
+  </div>
+
+  <!-- Excluir cliente -->
+  <div class="modal fade" id="modalExcluirCliente" tabindex="-1" aria-labelledby="modalExcluirCliente" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Excluir cliente</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          
+          <div class="form-floating mb-3 d-none">
+
+            <input type="text" class="form-control" id="idClienteDel" placeholder="Id do cliente" disabled>
+
+            <label for="idClienteDel">id</label>
+
+          </div>
+
+          <div class="form-floating mb-3 d-none">
+
+            <input type="text" class="form-control" id="nomeClienteDel" placeholder="Nome do cliente" disabled>
+
+            <label for="nomeClienteDel">Nome</label>
+
+          </div>
+
+          <div id="excluirClienteNome">
+
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="delCliente" data-bs-dismiss="modal">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container d-flex justify-content-center align-items-center">
+
+    <div class="conteudo">
+      
+      <div class="cabecalho" id="cabecalhoLista">
+
+        <i class="bi bi-list-task"> Lista de clientes:</i>
+
+        <button type="button" class="btn btn-success" id="botaoAdicionarCliente"><i class="bi bi-plus" aria-hidden="true"> Adicionar</i></button>
+        
+      </div>
+      
+      <div class="contexto" id="inicioLista">
+
+        <div class='pesquisaLista' id="hubPesquisa">
+
+          <h1>Buscar cliente:</h1>
+
+          <div class="form-check notNone">
+            <input class="form-check-input" type="checkbox" value="" id="checkClienteNome" checked>
+            <label class="form-check-label" for="checkClienteNome">
+              Nome
+            </label>
+          </div>
+
+          <div class="form-check notNone">
+            <input class="form-check-input" type="checkbox" value="" id="checkEmailCliente" checked>
+            <label class="form-check-label" for="checkEmailCliente">
+              Email
+            </label>
+          </div>
+
+          <input type="text" class="form-control" id="pesquisarCliente" placeholder="Pesquisa">
+
+          <button type="button" class="btn btn-success" id="botaoPesquisar"><i class="bi bi-search"></i> Pesquisar</button>
+
+
+
+        </div>
+
+        <div class='semClientes' id="semClientes"><i class='bi bi-x-circle'></i><p>Ainda não há clientes registrados!</p><h1 id='addCliente'>Adicionar cliente</h1></div>
+
+        <div class='semClientes' id="notFundCliente"><p>Nenhum cliente foi e encontrado</div>
+
+        <div class="lista" id="listaClientes">
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Cpf</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody id="bodyPesquisar">
+              
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class='semClientes' id="erro"><p>Tente novamente mais tarde</p></div>
+        
+    </div>
+    
+
+    </div>
+
+  </d-iv>
+  
+</body>
+</html>

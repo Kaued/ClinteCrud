@@ -1,0 +1,16 @@
+{
+    "name": "clintecrud/cliente",
+    "description": "um crud com clinte",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "../src/",
+            "App\\": "../app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kaue Domingues"
+        }
+    ],
+    "require": {}
+}
