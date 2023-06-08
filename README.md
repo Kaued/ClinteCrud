@@ -2,7 +2,6 @@
 
 Este é um projeto que realiza as operações do CRUD (Create, Read, Update e Delete) em uma tabela de clientes. Cada cliente possui as seguintes informações: nome, CPF, data de nascimento, endereço, e-mail e observação. Os campos complemento e observação são opcionais.
 
-#
 ## 🔧 **Pré-requisitos**
 
 Para que o projeto funcione corretamente, siga os pré-requisitos abaixo:
@@ -13,7 +12,6 @@ Para que o projeto funcione corretamente, siga os pré-requisitos abaixo:
 
 3️⃣ É necessário ter uma conexão com a internet para utilizar o projeto.
 
-#
 ## 🚀 **Instalação**
 
 Para instalar e executar o ClienteCRUD, siga os passos abaixo:
@@ -28,7 +26,6 @@ Para instalar e executar o ClienteCRUD, siga os passos abaixo:
 
 5️⃣ Acesse a página do projeto através do navegador e comece a utilizar o CRUD de clientes.
 
-#
 ## 💼 **Utilização**
 
 O projeto ClienteCRUD oferece as seguintes funcionalidades:
